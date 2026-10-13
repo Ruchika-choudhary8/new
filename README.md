@@ -25,48 +25,9 @@ ml-security-pipelines/
 └── results/                                    # Created when notebook runs
 ```
 
-## 1. Open and run in Google Colab (recommended)
 
-1. Open [Google Colab](https://colab.research.google.com/) and select **File → Upload notebook**.
-2. Choose `ML_Security_Pipelines_Ensembles_Colab.ipynb`.
-3. Run the notebook from the first cell. At **Step 2** use **Choose Files** to upload:
-   - `ad_urls.csv` **or** `ad_urls (1).csv`
-   - `keystroke_features.csv` **or** `keystroke_features (1).csv`
-4. The next cell calls `pd.read_csv()` on both uploaded files and displays the first few rows.
-5. Continue **Runtime → Run all** (or run each cell in order). Inspect CV scores, confusion matrices, holdout accuracy, and demo predictions.
-6. The `results/` directory contains `ad_cv_results.csv`, `keystroke_cv_results.csv`, and `metrics.json` after the notebook finishes. Colab runtime files are temporary; download what you want to retain.
 
-**Important:** The dataset files inside the ZIP are not automatically mounted when opening *only* the notebook in Colab. The notebook deliberately includes an upload step. If you run locally from the extracted folder, it finds the CSVs already under `data/` and skips uploading.
-
-## 2. Run as Python scripts (optional)
-
-Install dependencies:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-Run both models from the project directory:
-
-```bash
-python ad_blocker_ensemble.py
-python keystroke_ensemble.py
-```
-
-Try predicting a particular ad URL:
-
-```bash
-python ad_blocker_ensemble.py --url "https://ads.example.net/banner.js"
-```
-
-To read differently named datasets:
-
-```bash
-python ad_blocker_ensemble.py --csv "ad_urls (1).csv"
-python keystroke_ensemble.py --csv "keystroke_features (1).csv"
-```
-
-## 3. How the ML Pipelines work
+## 1. How the ML Pipelines work
 
 | Experiment | Pipeline | Compared models | Ensembling |
 |---|---|---|---|
@@ -75,7 +36,7 @@ python keystroke_ensemble.py --csv "keystroke_features (1).csv"
 
 Features and preprocessing are **inside cross-validated Pipelines** to avoid fitting transformers using test/validation data. A fixed **stratified train/test split** reserves an independent final test partition. **CV is run only on training data** for choosing the best ensemble.
 
-## 4. Reproducible observations from the supplied files
+## 2. Reproducible observations from the supplied files
 
 The main notebook and standalone programs were run against the bundled CSV files, using the indicated random seeds:
 
@@ -88,7 +49,7 @@ The main notebook and standalone programs were run against the bundled CSV files
 
 For an actual keystroke-authentication study, collect independent, consented typing sessions, use a **session-separated** evaluation split, and report **FAR**, **FRR**, and **EER** along with accuracy.
 
-## 5. Add or update the code on GitHub
+## 3. Add or update the code on GitHub
 
 The folder is ready for a normal Git repository. You can upload it through the GitHub website, or use these commands in a terminal **inside the extracted folder**.
 
@@ -120,7 +81,7 @@ From Colab, you may also use **File → Save a copy in GitHub** after authorizin
 
 The downloadable teaching ZIP includes `data/keystroke_features.csv` so both experiments can run locally. **The `.gitignore` deliberately excludes `data/keystroke_features*.csv`** from normal Git commits, because typing-timing patterns can be behavioral biometric data. It can be committed only if you have explicit authority to share the dataset. Colab's upload step allows the public code repository to be run without publishing it.
 
-## 6. Troubleshooting
+## 4. Troubleshooting
 
 - **`FileNotFoundError`:** Upload both CSVs in Colab Step 2, or place them in `data/` locally. Both original `(1)` filenames are supported.
 - **`ModuleNotFoundError`:** Run the install cell in Colab, or `python -m pip install -r requirements.txt` locally.
