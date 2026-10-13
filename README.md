@@ -11,6 +11,20 @@ The Colab notebook walks through **reading the supplied CSV files, cleaning, tra
 
 > The ad classifier predicts URLs; it does **not** install a browser ad blocker. The keystroke model is a teaching example, **not** reliable biometric authentication.
 
+## New: Ad-blocker four-model Pipelines (Random Forest, LR, SVM, XGBoost)
+
+Try the dedicated [Colab notebook](Ad_Blocker_RF_LR_SVM_XGBoost_Colab.ipynb), [standalone script](ad_blocker_four_models.py), and [ad-blocker README](README_ad_blocker_four_models.md). These files begin with loading the `ad_urls.csv` dataset, train four independent Pipelines (TF-IDF/URL-token features + classifier), tune them with 5-fold training CV, compare a four-model Soft Voting ensemble, select the top CV model, and then report holdout results.
+
+| Model | Mean train-CV accuracy | Held-out test accuracy |
+| --- | ---: | ---: |
+| Random Forest | 60.0% | 55.6% |
+| Logistic Regression | 73.0% | 66.7% |
+| **SVM** | **100.0%** | **100.0% (9/9)** |
+| XGBoost | 53.0% | 22.2% |
+| Soft Voting (four models) | 88.0% | 77.8% |
+
+The test set contains only **9 of 30 synthetic URLs**. These numbers do **not** measure real-world ad-blocking accuracy. SVM is selected using CV; the ensemble does not outperform it on this dataset.
+
 ## New: Keystroke four-model Pipelines (Random Forest, LR, SVM, XGBoost)
 
 Start with the dedicated [Google Colab notebook](Keystroke_RF_LR_SVM_XGBoost_Colab.ipynb) or [standalone Python script](keystroke_four_models.py), and see [README_keystroke_four_models.md](README_keystroke_four_models.md) for a complete step-by-step explanation. **The notebook starts with CSV upload and `pd.read_csv()`**, builds four `sklearn.pipeline.Pipeline` objects, performs random hyperparameter search on 5-fold training CV, compares an equal-weight four-model soft-voting ensemble, selects by CV, then evaluates on a fixed held-out test set.
@@ -34,6 +48,9 @@ new/
 ├── keystroke_ensemble.py                        # Earlier standalone timing classifier
 ├── Keystroke_RF_LR_SVM_XGBoost_Colab.ipynb       # New Colab: four ML Pipelines + Voting
 ├── keystroke_four_models.py                     # New script: RF, LR, SVM, XGBoost
+├── Ad_Blocker_RF_LR_SVM_XGBoost_Colab.ipynb      # New ad blocker Colab notebook
+├── ad_blocker_four_models.py                    # New ad blocker script with 4 Pipelines
+├── README_ad_blocker_four_models.md             # Ad blocker instructions and results
 ├── README_keystroke_four_models.md              # Four-model-specific instructions
 ├── requirements.txt
 ├── .gitignore
@@ -111,7 +128,7 @@ For an actual keystroke-authentication study, collect independent, consented typ
 
 The folder is ready for a normal Git repository. You can upload it through the GitHub website, or use these commands in a terminal **inside the extracted folder**.
 
-**The project is already published in the private repository [`Ruchika-choudhary8/new`](https://github.com/Ruchika-choudhary8/new)**. To make future changes, clone that repository and commit your edited files. No need to create another repository.
+**The project is already published in the repository [`Ruchika-choudhary8/new`](https://github.com/Ruchika-choudhary8/new)**. To make future changes, clone that repository and commit your edited files. No need to create another repository.
 
 ```bash
 git clone https://github.com/Ruchika-choudhary8/new.git
