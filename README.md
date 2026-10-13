@@ -1,7 +1,5 @@
 # ML Security Labs — Google Colab, Pipelines & Ensembles
 
-**Open the notebook in [Google Colab](https://colab.research.google.com/) using File → Upload notebook.**
-
 **Two end-to-end educational machine-learning experiments:**
 
 1. **ML-based ad URL classification** — predict `BLOCK` (`label=1`) or `ALLOW` (`label=0`) using lexical URL features and a Pipeline/soft-voting ensemble.
