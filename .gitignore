@@ -1,0 +1,16 @@
+.env
+.env.*
+*.token
+*.key
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+*.joblib
+*.pkl
+models/
+results/*.csv
+results/*.json
+results/*.png
+data/keystroke_features*.csv
+.DS_Store
